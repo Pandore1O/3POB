@@ -7,6 +7,14 @@ public class Disciplina {
 	private String cargaHoraria;
 	private String semestre;
 	
+	public Disciplina(String nome, String sigla, String cargaHoraria, String semestre) {
+		super();
+		this.nome = nome;
+		this.sigla = sigla;
+		this.cargaHoraria = cargaHoraria;
+		this.semestre = semestre;
+	}
+	
 	public String getCargaHoraria() {
 		return cargaHoraria;
 	}
@@ -36,14 +44,6 @@ public class Disciplina {
 	}
 	
 	public void setSemestre(String semestre) {
-		this.semestre = semestre;
-	}
-	
-	public Disciplina(String nome, String sigla, String cargaHoraria, String semestre) {
-		super();
-		this.nome = nome;
-		this.sigla = sigla;
-		this.cargaHoraria = cargaHoraria;
 		this.semestre = semestre;
 	}
 }

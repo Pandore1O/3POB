@@ -7,6 +7,14 @@ public class Aluno {
 	private String cpf;
 	private String email;
 	
+	public Aluno(String nome, String matricula, String cpf, String email) {
+		super();
+		this.nome = nome;
+		this.matricula = matricula;
+		this.cpf = cpf;
+		this.email = email;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -36,14 +44,6 @@ public class Aluno {
 	}
 	
 	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Aluno(String nome, String matricula, String cpf, String email) {
-		super();
-		this.nome = nome;
-		this.matricula = matricula;
-		this.cpf = cpf;
 		this.email = email;
 	}
 }
