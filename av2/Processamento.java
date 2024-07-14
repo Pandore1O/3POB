@@ -73,6 +73,8 @@ public class Processamento {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("\nClientes adicionados.");
 	}
 	
 	public void incluirCliente() {
@@ -100,7 +102,7 @@ public class Processamento {
 			System.out.println("\nInforme o CEP do cliente: ");
 			dados[4] = scanner.nextLine();
 			
-			String sql = "INSERT INTO clientes VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO clientes (nome, cpf, email, endereco, cep) VALUES (?, ?, ?, ?, ?)";
 			
 			try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
 				pstmt.setString(1, dados[0]);
@@ -116,6 +118,8 @@ public class Processamento {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("\nCliente adicionado.");
 	}
 	
 	public void alterarCliente() {
@@ -129,7 +133,7 @@ public class Processamento {
 			System.out.println("Informe o CPF do cliente: ");
 			cpf = scanner.nextLine();
 			
-			String sql = "SELECT nome FROM clientes where id = ?";
+			String sql = "SELECT nome FROM clientes WHERE cpf = ?";
 			String nome = null;
 			
 			try {
@@ -143,8 +147,13 @@ public class Processamento {
 					nome = resultSet.getString("nome");
 				}
 				
-				System.out.printf("O cliente com o CPF (%s) se chama %s, deseja continuar? (S/N)", cpf, nome);
+				System.out.printf("O cliente com o CPF (%s) se chama %s, deseja continuar? (S/N/Sair):\n", cpf, nome);
 				escolha = scanner.nextLine().toUpperCase();
+				
+				if (escolha.equalsIgnoreCase("sair")) {
+					break;
+				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -159,7 +168,7 @@ public class Processamento {
 					+ "2 - Alterar CPF\n"
 					+ "3 - Alterar E-Mail\n"
 					+ "4 - Alterar endereço\n"
-					+ "5 - Alterar CEP"
+					+ "5 - Alterar CEP\n"
 					+ "0 - Sair");
 				
 			opcao = Integer.parseInt(scanner.nextLine());
@@ -167,6 +176,7 @@ public class Processamento {
 			switch (opcao) {
 			
 			case 0:
+				opcao = 0;
 				break;
 				
 			case 1:
@@ -186,6 +196,8 @@ public class Processamento {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
+				System.out.println("\nNome alterado.");
 				break;
 				
 			case 2:
@@ -206,6 +218,8 @@ public class Processamento {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
+				System.out.println("\nCPF alterado.");
 				opcao = 0;
 				break;
 				
@@ -226,6 +240,8 @@ public class Processamento {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
+				System.out.println("\nE-Mail alterado.");
 				break;
 				
 			case 4:
@@ -245,6 +261,8 @@ public class Processamento {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
+				System.out.println("\nEndereço alterado.");
 				break;
 				
 			case 5:
@@ -264,6 +282,8 @@ public class Processamento {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
+				System.out.println("\nCEP alterado.");
 				break;
 			}
 		}while(opcao != 0);
@@ -284,12 +304,14 @@ public class Processamento {
 			
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			
-			pstmt.setString(1, sql);
+			pstmt.setString(1, cpf);
 			pstmt.executeUpdate();
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("\nCliente excluido.");
 	}
 	
 	public void listarClientes() {
